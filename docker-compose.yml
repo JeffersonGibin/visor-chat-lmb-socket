@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  socket:
+    container_name: chat-socket
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - AWS_REGION=${AWS_REGION} 
+      - AWS_API_GATEWAY_ID=${AWS_API_GATEWAY_ID}
+      - AWS_API_GATEWAY_RESOURCE_ID=${AWS_API_GATEWAY_RESOURCE_ID}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    volumes:
+      - ./:/home/app:rw
