@@ -1,4 +1,4 @@
-service: visor-chat-lmb-socket
+service: visor-chat-lmb
 frameworkVersion: "3"
 
 provider:
@@ -6,30 +6,15 @@ provider:
   runtime: nodejs18.x
   stage: dev
   region: ${env:AWS_REGION}
-
-  # This is necessary to use only api to multi-resource
-  apiGateway:
-    restApiId: ${env:AWS_API_GATEWAY_ID}
-    restApiRootResourceId: ${env:AWS_API_GATEWAY_RESOURCE_ID}
+  environment:
+    GW_ENDPOINT: ${env:GW_ENDPOINT}
+    OPENAI_API_KEY: ${env:OPENAI_API_KEY}
 
 functions:
-  functionName:
-    ChatLmb:
-    # Environment variables need to be in OS
-    environment:
-      AWS_REGION: ${env:AWS_REGION}
+  ChatLmbSocket:
     handler: index.handler
-    events:
-      # Accept any path that is added to the service
-      - http:
-          path: /chat/{proxy+}
-          method: ANY
-
-# Hide endpoint in the output deploy
-noDeploy: true
 
 plugins:
-  # plus to serverless work offile
   - serverless-offline
 
 custom:

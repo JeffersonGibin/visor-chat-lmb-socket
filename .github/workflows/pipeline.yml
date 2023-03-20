@@ -20,16 +20,15 @@ jobs:
     with:
       node-version: "18"
 
-  # release:
-  #   if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
-  #   uses: ./.github/workflows/release.yml
-  #   needs: build
-  #   with:
-  #     node-version: "18"
-  #   secrets:
-  #     AWS_COGNITO_REGION: ${{ vars.AWS_COGNITO_REGION }}
-  #     AWS_COGNITO_CLIENT_ID: ${{ secrets.AWS_COGNITO_CLIENT_ID }}
-  #     AWS_API_GATEWAY_ID: ${{ secrets.AWS_API_GATEWAY_ID}}
-  #     AWS_API_GATEWAY_RESOURCE_ID: ${{ secrets.AWS_API_GATEWAY_RESOURCE_ID }}
-  #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  release:
+    if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
+    uses: ./.github/workflows/release.yml
+    needs: build
+    with:
+      node-version: "18"
+    secrets:
+      GW_ENDPOINT: ${{ vars.GW_ENDPOINT }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION}}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
