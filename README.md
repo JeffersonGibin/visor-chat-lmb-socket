@@ -40,7 +40,7 @@ export AWS_SECRET_ACCESS_KEY=
 
 ## Action Socket
 
-| Action      | Description                 | payload                                                                                                   |
+| Action      | Description                 | Payload                                                                                                   |
 | ----------- | --------------------------- | --------------------------------------------------------------------------------------------------------- |
 | *sendMessage* | send message to user socket | `{"action": "sendMessage", "to": "AI", "from": "Josh", "message": "Hello"}` |
 
