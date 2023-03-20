@@ -46,7 +46,7 @@ export const handler = async (event) => {
             await new ConnectAction(messageDTO, awsGatewaySocketRepository).dispatch();
           break;
         case "$disconnect":
-          new DisconnectAction(
+          await new DisconnectAction(
             messageDTO,
             awsGatewaySocketRepository
           ).dispatch();

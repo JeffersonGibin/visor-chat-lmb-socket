@@ -49,8 +49,9 @@ export class SendMessageAction extends Action {
   async dispatch() {
     const { awsGatewaySocketRepository, openAiGPTRepository } =
       this.#repositories;
+
     const responseToUSer = await openAiGPTRepository.requestResponse(
-      this.#messageObject.text
+      this.#messageObject.message
     );
 
     return awsGatewaySocketRepository.emit(this.#messageObject.connectionId, {
