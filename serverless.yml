@@ -1,0 +1,23 @@
+service: visor-chat-lmb
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: ${env:AWS_REGION}
+  environment:
+    GW_ENDPOINT: ${env:GW_ENDPOINT}
+    OPENAI_API_KEY: ${env:OPENAI_API_KEY}
+
+functions:
+  ChatLmbSocket:
+    handler: index.handler
+
+plugins:
+  - serverless-offline
+
+custom:
+  # This is necessary because the docker to use this host
+  serverless-offline:
+    host: 0.0.0.0

@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  socket:
+    container_name: chat-socket
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - GW_ENDPOINT=${GW_ENDPOINT} 
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AWS_REGION=${AWS_REGION}
+    volumes:
+      - ./:/home/app:rw
