@@ -8,7 +8,7 @@ This service is part of the project for the selective process of the Visor. The 
 
 ## Architecture
 
-![image](https://user-images.githubusercontent.com/6215779/226136339-d38c7dfc-3bbc-48c5-ab0b-71eb44ba74c6.png)
+![image](https://user-images.githubusercontent.com/6215779/226264258-65a437b2-dd5b-4e78-af14-3670e7757dc9.png)
 
 ## Pipeline flow
 
