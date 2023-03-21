@@ -8,9 +8,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+      - "3001:3001"
     environment:
-      - GW_ENDPOINT=${GW_ENDPOINT} 
+      - GW_ENDPOINT=0.0.0.0:3001
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - AWS_REGION=${AWS_REGION}
+      
     volumes:
       - ./:/home/app:rw

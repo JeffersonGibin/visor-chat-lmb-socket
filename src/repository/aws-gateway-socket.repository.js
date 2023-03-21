@@ -6,7 +6,7 @@ export class AWSGatewaySocketRepository extends Socket {
 
   constructor(endpoint) {
     super();
-    this.#apiGateway = new AWS.ApiGatewayManagementApi({ endpoint });
+    this.apiGateway = new AWS.ApiGatewayManagementApi({ endpoint });
   }
 
   /**
@@ -15,15 +15,15 @@ export class AWSGatewaySocketRepository extends Socket {
    * @param {Object} payload
    */
   async emit(connectionId, payload) {
+    const payloadEmit = {
+      ConnectionId: connectionId,
 
-    // eslint-disable-next-line no-undef
-    const payloadBuffer = Buffer.from(JSON.stringify(payload));
+      // eslint-disable-next-line no-undef
+      Data: Buffer.from(JSON.stringify(payload)),
+    };
 
-    await this.#apiGateway
-      .postToConnection({
-        ConnectionId: connectionId,
-        Data: payloadBuffer,
-      })
+    return this.apiGateway
+      .postToConnection(payloadEmit)
       .promise();
   }
 }

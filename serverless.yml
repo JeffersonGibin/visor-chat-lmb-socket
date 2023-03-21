@@ -1,4 +1,4 @@
-service: visor-chat-lmb
+service: visor-chat-lmb-socket
 frameworkVersion: "3"
 
 provider:
@@ -9,11 +9,21 @@ provider:
   environment:
     GW_ENDPOINT: ${env:GW_ENDPOINT}
     OPENAI_API_KEY: ${env:OPENAI_API_KEY}
+    AWS_COGNITO_REGION: ${env:AWS_REGION}
 
 functions:
   ChatLmbSocket:
     handler: index.handler
 
+    # events:
+    #   - websocket:
+    #       route: $connect
+    #   - websocket:
+    #       route: $disconnect
+    #   - websocket:
+    #       route: $default
+    #   - websocket:
+    #       route: sendMessage
 plugins:
   - serverless-offline
 
