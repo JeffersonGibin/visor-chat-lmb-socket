@@ -47,17 +47,30 @@ export class SendMessageAction extends Action {
     const { awsGatewaySocketRepository, openAiGPTRepository } =
       this.#repositories;
 
-    const responseTextAI = await openAiGPTRepository.requestResponse(message);
-
-    return awsGatewaySocketRepository.emit(connectionId, {
-      id: uuId,
-      status: "Success",
-      message: {
-        to: connectionId,
-        from: "OpenAI",
-        date: new Date().toISOString(),
-        text: responseTextAI,
-      },
-    });
+    return openAiGPTRepository
+      .requestResponse(message)
+      .then((responseTextAI) => {
+        return awsGatewaySocketRepository.emit(connectionId, {
+          id: uuId,
+          status: "Success",
+          message: {
+            to: connectionId,
+            from: "OpenAI",
+            date: new Date().toISOString(),
+            text: responseTextAI,
+          },
+        });
+      })
+      .catch(() => {
+        return awsGatewaySocketRepository.emit(connectionId, {
+          id: uuId,
+          status: "Error",
+          message: {
+            to: connectionId,
+            from: "OpenAI",
+            date: new Date().toISOString(),
+          },
+        });
+      });
   }
 }
