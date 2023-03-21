@@ -37,11 +37,18 @@ export AWS_SECRET_ACCESS_KEY=
 
 ```
 
-## Action Socket
+## Input Action Socket
 
 | Action        | Description                 | Payload                                                                     |
 | ------------- | --------------------------- | --------------------------------------------------------------------------- |
 | _sendMessage_ | send message to user socket | `{"action": "sendMessage", "message": "Hello"}` |
+
+## Output Action Socket AI
+
+| Status        | Description                 | Response                                                                     |
+| ------------- | --------------------------- | --------------------------------------------------------------------------- |
+| _Success_ | When the Opean AI response with successfully | `{ id: "fb461d1c-cd66-49a3-9c20-056def533216", status: "Success", message: { to: "3123112534162534", from: "OpenAI", date: "2023-03-21T01:33:10.680Z", text: "\nHello!", }, }` |
+
 
 ## Tecnologies
 
