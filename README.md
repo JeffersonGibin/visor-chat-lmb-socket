@@ -14,7 +14,6 @@ This service is part of the project for the selective process of the Visor. The 
 
 ![image](https://user-images.githubusercontent.com/6215779/226262534-633ad887-a400-4ef7-a1a6-868a221090dc.png)
 
-
 ## What is this project ?
 
 ## How start the project in the localhost?
@@ -24,7 +23,7 @@ project. The proposity is delivery of the project deployed in the cloud.
 
 ```shell
 ## Region AWS
-AWS_REGION=us-east-1
+export AWS_REGION=us-east-1
 
 # Endpoint API Gateway
 export GW_ENDPOINT=""
@@ -38,16 +37,23 @@ export AWS_SECRET_ACCESS_KEY=
 
 ```
 
-## Action Socket
+## Input Action Socket
 
-| Action      | Description                 | Payload                                                                                                   |
-| ----------- | --------------------------- | --------------------------------------------------------------------------------------------------------- |
-| *sendMessage* | send message to user socket | `{"action": "sendMessage", "to": "AI", "from": "Josh", "message": "Hello"}` |
+| Action        | Description                 | Payload                                                                     |
+| ------------- | --------------------------- | --------------------------------------------------------------------------- |
+| _sendMessage_ | send message to user socket | `{"action": "sendMessage", "message": "Hello"}` |
+
+## Output Action Socket AI
+
+| Status        | Description                 | Response                                                                     |
+| ------------- | --------------------------- | --------------------------------------------------------------------------- |
+| _Success_ | When the Opean AI response with successfully | `{ id: "fb461d1c-cd66-49a3-9c20-056def533216", status: "Success", message: { to: "3123112534162534", from: "OpenAI", date: "2023-03-21T01:33:10.680Z", text: "\nHello!", }, }` |
+| _Error_ | When the Opean AI response don't response with successfully | `{ id: "fb461d1c-cd66-49a3-9c20-056def533216", status: "Error", message: { to: "3123112534162534", from: "OpenAI", date: "2023-03-21T01:33:10.680Z", }, }` |
+
 
 ## Tecnologies
 
-- serverless
-- javascript
-- express
+- Serverless
+- JavaScript
 - jest
 - docker

@@ -5,7 +5,7 @@ import { OpenAiGPTRepository } from "../repository/open-ai-gpt.repository.js";
 import { MessageDTO } from "../dtos/message.dto.js";
 
 export class SendMessageAction extends Action {
-  #messageObject;
+  #messageDTO;
   #repositories;
 
   constructor(messageDTO, repositories) {
@@ -35,27 +35,40 @@ export class SendMessageAction extends Action {
     }
 
     this.#repositories = repositories;
-
-    this.#messageObject = {
-      id: messageDTO.uuId,
-      connectionId: messageDTO.connectionId,
-      from: messageDTO.from,
-      to: messageDTO.to,
-      message: messageDTO.message,
-      date: new Date().toISOString(),
-    };
+    this.#messageDTO = messageDTO;
   }
 
+  /**
+   * Dispatch messages
+   * @returns {Promise<void>}
+   */
   async dispatch() {
+    const { uuId, connectionId, message } = this.#messageDTO;
     const { awsGatewaySocketRepository, openAiGPTRepository } =
       this.#repositories;
-    const responseToUSer = await openAiGPTRepository.requestResponse(
-      this.#messageObject.text
-    );
 
-    return awsGatewaySocketRepository.emit(this.#messageObject.connectionId, {
-      ...this.#messageObject,
-      message: responseToUSer,
-    });
+    const responseTextAI = await openAiGPTRepository
+      .requestResponse(message)
+      .then((responseTextAI) => ({
+        id: uuId,
+        status: "Success",
+        message: {
+          to: connectionId,
+          from: "OpenAI",
+          date: new Date().toISOString(),
+          text: responseTextAI,
+        },
+      }))
+      .catch(() => ({
+        id: uuId,
+        status: "Error",
+        message: {
+          to: connectionId,
+          from: "OpenAI",
+          date: new Date().toISOString(),
+        },
+      }));
+
+    return awsGatewaySocketRepository.emit(connectionId, responseTextAI);
   }
 }
