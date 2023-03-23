@@ -12,8 +12,8 @@ export class OpenAiGPTRepository {
     const openai = new OpenAIApi(this.#configuration);
 
     const res = await openai
-      .createCompletion({
-        model: "text-davinci-003",
+      .createChatCompletion({
+        model: "gpt-3.5-turbo",
         prompt: message,
         temperature: 0.5,
         max_tokens: 3500,
