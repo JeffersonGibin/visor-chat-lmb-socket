@@ -4,7 +4,7 @@
 
 ## What is this project ?
 
-This service is part of the project for the selective process of the Visor. The project is a service to work with socket.
+This service is part of the project for the selective process of the Visor. The project is a service to work with socket. For more information about the project, [visit here](https://github.com/JeffersonGibin/visor-challenge)
 
 ## Architecture
 
